@@ -34,7 +34,7 @@ jobs:
         name: xblunblock_q.xbe
         path: bin/xblunblock_q.xbe
   release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository_owner == 'insignia-live'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository_owner == 'thrimbor'
     runs-on: ubuntu-latest
     needs: [build-normal, build-quick]
     steps:
