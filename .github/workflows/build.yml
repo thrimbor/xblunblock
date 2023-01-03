@@ -8,13 +8,13 @@ jobs:
     timeout-minutes: 10
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Build binary
       run: docker run -v `pwd`:/usr/src/app -t ghcr.io/xboxdev/nxdk:git-22565f68 make
     - name: Rename binary
       run: sudo chown -R `id -u`:`id -g` bin && mv bin/default.xbe bin/xblunblock.xbe
     - name: Upload build artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: xblunblock.xbe
         path: bin/xblunblock.xbe
@@ -23,13 +23,13 @@ jobs:
     timeout-minutes: 10
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Build binary
       run: docker run -v `pwd`:/usr/src/app -t ghcr.io/xboxdev/nxdk:git-22565f68 make CXXFLAGS=-DQUICK_MODE
     - name: Rename binary
       run: sudo chown -R `id -u`:`id -g` bin && mv bin/default.xbe bin/xblunblock_q.xbe
     - name: Upload build artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: xblunblock_q.xbe
         path: bin/xblunblock_q.xbe
@@ -42,7 +42,7 @@ jobs:
       id: build_tag
       run: echo "::set-output name=BUILD_TAG::v$(date -u +'%Y%m%d%H%M')"
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
