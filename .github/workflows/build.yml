@@ -45,10 +45,27 @@ jobs:
       uses: actions/download-artifact@v3
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         tag_name: ${{ steps.build_tag.outputs.BUILD_TAG }}
-        files: |
-          xblunblock.xbe/xblunblock.xbe
-          xblunblock_q.xbe/xblunblock_q.xbe
+        release_name: ${{ steps.build_tag.outputs.BUILD_TAG }}
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: xblunblock.xbe/xblunblock.xbe
+        asset_name: xblunblock.xbe
+        asset_content_type: binary/octet-stream
+    - name: Upload Release Assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: xblunblock_q.xbe/xblunblock_q.xbe
+        asset_name: xblunblock_q.xbe
+        asset_content_type: binary/octet-stream
