@@ -40,7 +40,7 @@ jobs:
     steps:
     - name: Define Build Tag
       id: build_tag
-      run: echo "::set-output name=BUILD_TAG::v$(date -u +'%Y%m%d%H%M')"
+      run: echo "BUILD_TAG=v$(date -u +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
     - name: Download artifacts
       uses: actions/download-artifact@v3
     - name: Create Release
